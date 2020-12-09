@@ -1,0 +1,21 @@
+{
+  "name": "choco-catalogservice",
+  "version": "1.0.0",
+  "description": "catalog Service for choco ordering and suppliers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "choco",
+    "nodejs",
+    "microservice",
+    "ordering",
+    "supplier"
+  ],
+  "author": "ROHAN KADAM",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
