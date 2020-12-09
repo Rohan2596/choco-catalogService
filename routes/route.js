@@ -9,7 +9,7 @@ route.post("/:token/:catalogId/item",supplierController.addItemtoCatalog);
 
 route.put("/:token/:catalogId/item/:itemId",supplierController.editItemofCatalog);
 
-route.get("/:token/:catalogId/all",supplierController.getAllItemsofCatalog);
+route.get("/:token/:catalogId/item/all",supplierController.getAllItemsofCatalog);
 
 route.delete("/:token/:catalogId/:itemId",supplierController.deleteItemofCatalog);
 
