@@ -1,24 +1,19 @@
 const express =require('express')
 const route=express.Router();
 
-route.post("/:token/add",()=>{
-    console.log("Adding Items to Catalog");
-})
+const supplierController=require('../controller/SupplierController');
 
-route.post("/:token/edit/:catalogId",()=>{
-    console.log("Editing Catalog Items")
-})
+route.post("/:token/create",supplierController.createCatalog);
 
-route.get("/:token/all",()=>{
-    console.log("Getting Catalog Items of supplier");
-})
+route.post("/:token/:catalogId/item",supplierController.addItemtoCatalog);
 
-route.delete("/:token/detele/:catalogId",()=>{
-    console.log("Deleting Catalog Items permantelety");
-})
+route.put("/:token/:catalogId/item/:itemId",supplierController.editItemofCatalog);
 
-route.put("/:token/remove/:catalogId",()=>{
-    console.log("Removing Catalog Items for display list.");
-})
+route.get("/:token/:catalogId/all",supplierController.getAllItemsofCatalog);
+
+route.delete("/:token/:catalogId/:itemId",supplierController.deleteItemofCatalog);
+
+route.put("/:token/:catalogId/remove/:itemId",supplierController.removeItemFromCatalog);
+
 
 module.exports=route;
