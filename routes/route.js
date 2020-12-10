@@ -2,8 +2,12 @@ const express =require('express')
 const route=express.Router();
 
 const supplierController=require('../controller/SupplierController');
-
+//Catalog Routes
 route.post("/:token/create",supplierController.createCatalog);
+route.put("/:token/:catalogId","");
+route.get("/:token/all","");
+route.get("/:token/:catalogId","");
+//Catalog Item Routes
 
 route.post("/:token/:catalogId/item",supplierController.addItemtoCatalog);
 

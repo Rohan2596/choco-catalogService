@@ -28,6 +28,10 @@ class SupplierController {
             next(error)
         }
     };
+
+
+
+    
     addItemtoCatalog = (req, res, next) => {
 
         try {
