@@ -1,23 +1,24 @@
 const express =require('express')
 const route=express.Router();
 
-const supplierController=require('../controller/SupplierController');
+const catalogController=require('../controller/catalog.controller')
+const itemController=require('../controller/item.controller');
 //Catalog Routes
-route.post("/:token/create",supplierController.createCatalog);
-route.put("/:token/:catalogId","");
-route.get("/:token/all","");
-route.get("/:token/:catalogId","");
+route.post("/:token/create",catalogController.createCatalog);
+route.put("/:token/:catalogId",catalogController.editCatalog);
+route.get("/:token/all",catalogController.getAllCatalog);
+route.get("/:token/:catalogId",catalogController.getSupplierCatalog);
 //Catalog Item Routes
 
-route.post("/:token/:catalogId/item",supplierController.addItemtoCatalog);
+route.post("/:token/:catalogId/item",itemController.addItemtoCatalog);
 
-route.put("/:token/:catalogId/item/:itemId",supplierController.editItemofCatalog);
+route.put("/:token/:catalogId/item/:itemId",itemController.editItemofCatalog);
 
-route.get("/:token/:catalogId/item/all",supplierController.getAllItemsofCatalog);
+route.get("/:token/:catalogId/item/all",itemController.getAllItemsofCatalog);
 
-route.delete("/:token/:catalogId/:itemId",supplierController.deleteItemofCatalog);
+route.delete("/:token/:catalogId/:itemId",itemController.deleteItemofCatalog);
 
-route.put("/:token/:catalogId/remove/:itemId",supplierController.removeItemFromCatalog);
+route.put("/:token/:catalogId/remove/:itemId",itemController.removeItemFromCatalog);
 
 
 module.exports=route;
