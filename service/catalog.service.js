@@ -1,11 +1,19 @@
+const catalogModel = require('../model/catalog.model')
 class CatalogService {
 
     createCatalog = (createCatalogDto, next) => {
         try {
-            console.log("Catalog Created Successfully.", createCatalogDto);
-            return createCatalogDto;
+          return   catalogModel.createCatalog(createCatalogDto)
+                .then(
+                    (data) => {
+                        console.log(data);
+                        return data
+                    }).catch((err)=>{
+                        return err
+                    })
 
         } catch (error) {
+            console.log(error);
             next(error)
         }
     };

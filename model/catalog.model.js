@@ -1,12 +1,16 @@
 const mongoose=require('mongoose')
 
-const catalogScheme=new mongoose.Schema(
+const catalogSchema=new mongoose.Schema(
     {
         'name':{
             type:String,
             required:true
         },
         'category':{
+            type:String,
+            required:true
+        },
+        'customer_id':{
             type:String,
             required:true
         },
@@ -17,4 +21,36 @@ const catalogScheme=new mongoose.Schema(
         timestamps:true
     })
 
-const catalogModel=mongoose.model('catalog',catalogScheme)
+const catalogModel=mongoose.model('catalog',catalogSchema)
+class CatalogModel{
+
+    createCatalog=(catalogDto,next)=>{
+        try {
+            return new Promise((resolve,reject)=>{
+
+                 let catalog={
+                     "name":catalogDto.name,
+                     "category":catalogDto.category,
+                     "items":[],
+                     "customer_id":catalogDto.token
+                 }
+                 new catalogModel(catalog)
+                 .save()
+                 .then(result=>{
+                    resolve({ message: 'Catalog Added successfully!', data: result });
+                }).catch(err => {
+                    reject({ message: 'Catalog Failed!', error: err });
+                })
+
+            })
+
+        } catch (error) {
+            next(error)
+            
+        }
+    }
+
+
+
+}
+module.exports=new CatalogModel();

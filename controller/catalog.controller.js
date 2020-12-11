@@ -35,8 +35,10 @@ class CatalogController {
                         return res.status(404).send(response);
 
                     })
+                
             }
         } catch (error) {
+            console.log(error);
             next(error)
         }
     };
