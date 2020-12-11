@@ -1,3 +1,4 @@
+const catalogService = require('../service/catalog.service')
 class CatalogController {
 
     createCatalog = (req, res, next) => {
@@ -14,15 +15,26 @@ class CatalogController {
                 response.data = validationErrors[0].msg;
                 return res.status(500).send(response);
             } else {
-                const catalog = {
+                const createCatalogDto = {
                     'name': req.body.name,
                     'category': req.body.category,
-                    'items': []
+                    'items': [],
+                    'token':token
                 }
-                response.success = true;
-                response.message = "Catalog Created SuccessFully!";
-                response.data = catalog;
-                return res.status(200).send(response);
+                catalogService.createCatalog(createCatalogDto)
+                    .then((data) => {
+                        response.success = true;
+                        response.message = "Catalog Created SuccessFully!";
+                        response.data = data;
+                        return res.status(200).send(response);
+                    }
+                    ).catch((err) => {
+                        response.success = false;
+                        response.message = "Catalog Created SuccessFully!";
+                        response.data = err;
+                        return res.status(404).send(response);
+
+                    })
             }
         } catch (error) {
             next(error)
@@ -42,16 +54,28 @@ class CatalogController {
                 response.data = validationErrors[0].msg;
                 return res.status(500).send(response);
             } else {
-                const catalog = {
+                const editCatalogDto = {
                     'name': req.body.name,
                     'category': req.body.category,
-                    'items': []
+                    'items': [],
+                    'token':token,
+                    'catalogId':catalogId
                 }
-                response.success = true;
-                response.message = "Catalog Edited SuccessFully!";
-                response.data = catalog;
-                return res.status(200).send(response);
-            }
+                catalogService.editCatalog(editCatalogDto)
+                .then((data) => {
+                    response.success = true;
+                    response.message = "Catalog Edited SuccessFully!";
+                    response.data = data;
+                    return res.status(200).send(response);
+                }
+                ).catch((err) => {
+                    response.success = false;
+                    response.message = "Catalog Created SuccessFully!";
+                    response.data = err;
+                    return res.status(404).send(response);
+
+                })
+}
         } catch (error) {
             next(error)
         }
@@ -71,14 +95,14 @@ class CatalogController {
 
 
     };
-    getSupplierCatalog=(req,res,next)=>{
+    getSupplierCatalog = (req, res, next) => {
         try {
             let response = {}
             let token = req.params.token
-            let catalogId=req.params.catalogId
+            let catalogId = req.params.catalogId
             response.success = true;
             response.message = "Get Catalog  SuccessFully!";
-            response.data = token +" catalog Id:- " +catalogId;
+            response.data = token + " catalog Id:- " + catalogId;
             return res.status(200).send(response);
 
         } catch (error) {
