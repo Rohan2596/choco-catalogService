@@ -88,10 +88,22 @@ class CatalogController {
         try {
             let response = {}
             let token = req.params.token
-            response.success = true;
-            response.message = "Catalog All SuccessFully!";
-            response.data = token;
-            return res.status(200).send(response);
+
+
+            catalogService.getAllCatalog()
+            .then((data) => {
+                response.success = true;
+                response.message = data.message;
+                response.data = data;
+                return res.status(200).send(response);
+            }
+            ).catch((err) => {
+                response.success = false;
+                response.message = "No Data Found.";
+                response.data = err;
+                return res.status(404).send(response);
+
+            })
 
         } catch (error) {
             next(error)
@@ -127,7 +139,35 @@ class CatalogController {
             next(error)
         }
 
+    };
+    deleteCatalog=(req,res,next)=>{
+        try {
+            let response = {}
+            let token = req.params.token
+            let catalogId = req.params.catalogId
+            const catalogDto={
+                'catalogId':catalogId,
+                'customerId' :token
+            }
+            catalogService.deleteACatalog(catalogDto)
+            .then((data) => {
+                response.success = true;
+                response.message = data.message;
+                response.data = data;
+                return res.status(200).send(response);
+            }
+            ).catch((err) => {
+                response.success = false;
+                response.message = "Catalog Delete UnSuccessFully!";
+                response.data = err;
+                return res.status(404).send(response);
 
+            })
+
+
+        } catch (error) {
+            next(error)
+        }
     }
 
 }

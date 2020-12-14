@@ -8,6 +8,7 @@ route.post("/:token/create",catalogController.createCatalog);
 route.put("/:token/:catalogId",catalogController.editCatalog);
 route.get("/:token/all",catalogController.getAllCatalog);
 route.get("/:token/:catalogId",catalogController.getSupplierCatalog);
+route.delete("/:token/:catalogId",catalogController.deleteCatalog)
 //Catalog Item Routes
 
 route.post("/:token/:catalogId/item",itemController.addItemtoCatalog);

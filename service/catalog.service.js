@@ -32,10 +32,14 @@ class CatalogService {
             next(error)
         }
     };
-    getAllCatalog = (getAllCatalogDto, next) => {
+    getAllCatalog = (next) => {
         try {
-            console.log("Getting All Catalog.", getAllCatalogDto);
-            return getAllCatalogDto;
+            return catalogModel.getAllCatalog()
+            .then((data)=>{
+                return data;
+            }).catch((err)=>{
+                return err;
+            })
         } catch (error) {
             next(error)
         }
@@ -44,6 +48,20 @@ class CatalogService {
         try {
           
             return catalogModel.getCatalog(getAsupplierDto)
+            .then(
+                (data)=>{
+                    return data;
+                }
+            ).catch((err)=>{
+                return err
+            })
+        } catch (error) {
+            next(error)
+        }
+    };
+    deleteACatalog=(catalogDto,next)=>{
+        try {
+            return catalogModel.deteleCatalog(catalogDto)
             .then(
                 (data)=>{
                     return data;

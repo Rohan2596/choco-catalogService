@@ -89,6 +89,25 @@ class CatalogModel{
                 ).then(result=>{
 
                     if(result){
+                        resolve({message:'Get Catalog based on Id',data:result});
+                    
+                    }else{
+                        reject({message:'No Catalog found.',data:result})
+                    }
+                })
+            })
+
+        } catch (error) {
+            next(error)
+        }
+    };
+    getAllCatalog=(next)=>{
+        try {
+            return new Promise((resolve,reject)=>{
+                catalogModel.find().then(
+                    result=>
+                    {
+                    if(result){
                         resolve({message:'Category Updated',data:result});
                     
                     }else{
@@ -97,6 +116,27 @@ class CatalogModel{
                 })
             })
 
+        } catch (error) {
+            next(error)
+        };
+    };
+    deteleCatalog=(catalogDto,next)=>{
+        try {
+            console.log(catalogDto);
+            return new Promise((resolve,reject)=>{
+                catalogModel.findByIdAndDelete({
+                    '_id':catalogDto.catalogId
+                }).then(
+                    result=>
+                    {
+                    if(result){
+                        resolve({message:'Catalog Deleted Successfully.',data:result});
+                    
+                    }else{
+                        reject({message:'Catalog Delete Unsuccessfully.',data:result})
+                    }
+                })
+            })
         } catch (error) {
             next(error)
         }
