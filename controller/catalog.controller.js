@@ -24,7 +24,7 @@ class CatalogController {
                 catalogService.createCatalog(createCatalogDto)
                     .then((data) => {
                         response.success = true;
-                        response.message = "Catalog Created SuccessFully!";
+                        response.message = data.message;
                         response.data = data;
                         return res.status(200).send(response);
                     }
@@ -67,7 +67,7 @@ class CatalogController {
                 catalogService.editCatalog(editCatalogDto)
                     .then((data) => {
                         response.success = true;
-                        response.message = "Catalog Edited SuccessFully!";
+                        response.message = data.message;
                         response.data = data;
                         return res.status(200).send(response);
                     }
@@ -104,10 +104,24 @@ class CatalogController {
             let response = {}
             let token = req.params.token
             let catalogId = req.params.catalogId
-            response.success = true;
-            response.message = "Get Catalog  SuccessFully!";
-            response.data = token + " catalog Id:- " + catalogId;
-            return res.status(200).send(response);
+            const catalogDto={
+                'catalogId':catalogId,
+                'customerId' :token
+            }
+            catalogService.getASuppliersCatalog(catalogDto)
+            .then((data) => {
+                response.success = true;
+                response.message = data.message;
+                response.data = data;
+                return res.status(200).send(response);
+            }
+            ).catch((err) => {
+                response.success = false;
+                response.message = "Catalog Created SuccessFully!";
+                response.data = err;
+                return res.status(404).send(response);
+
+            })
 
         } catch (error) {
             next(error)

@@ -42,8 +42,15 @@ class CatalogService {
     }
     getASuppliersCatalog = (getAsupplierDto, next) => {
         try {
-            console.log("Get A supplier Catalog ", getAsupplierDto);
-            return getAsupplierDto;
+          
+            return catalogModel.getCatalog(getAsupplierDto)
+            .then(
+                (data)=>{
+                    return data;
+                }
+            ).catch((err)=>{
+                return err
+            })
         } catch (error) {
             next(error)
         }

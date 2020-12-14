@@ -75,10 +75,33 @@ class CatalogModel{
     
             
         } catch (error) {
-            console.log(error);
+            
+            next(error)
+        }
+    };
+    getCatalog=(catalogDto,next)=>{
+        try {
+            return new Promise((resolve,reject)=>{
+                catalogModel.findById(
+                    {
+                        '_id':catalogDto.catalogId
+                    }
+                ).then(result=>{
+
+                    if(result){
+                        resolve({message:'Category Updated',data:result});
+                    
+                    }else{
+                        reject({message:'Category Updateed FAILED.',data:result})
+                    }
+                })
+            })
+
+        } catch (error) {
             next(error)
         }
     }
+
 
 
 
