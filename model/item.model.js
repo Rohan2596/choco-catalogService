@@ -31,8 +31,29 @@ const itemModel = mongoose.model('item', itemSchema);
 class ItemModel {
     addItemtoCatalog = (itemDto, next) => {
         try {
+            return new Promise((resolve, reject) => {
+                const item = {
+                    'name': itemDto.name,
+                    'category': itemDto.category,
+                    'quantity': itemDto.quantity,
+                    'price': itemDto.price,
+                    'quantityType': itemDto.quantityType
+
+                }
+
+                new itemModel(item)
+                    .save()
+                    .then(result => {
+                        resolve({ message: 'Item Added successfully!', data: result });
+                    }).catch(err => {
+                        reject({ message: 'Item Addition Failed.', error: err });
+                    })
+
+            })
+
 
         } catch (error) {
+            console.log(error);
             next(error);
         }
     };
@@ -52,24 +73,25 @@ class ItemModel {
     };
     getItemsOfCatalog = (itemDto, next) => {
         try {
-            
+
         } catch (error) {
             next(error)
         }
 
     };
-    removeAItemfromCatalog=(itemDto,next)=>{
+    removeAItemfromCatalog = (itemDto, next) => {
         try {
-            
+
         } catch (error) {
             next(error)
         }
     }
-    deleteAItemofCatalog=(itemDto,next)=>{
+    deleteAItemofCatalog = (itemDto, next) => {
         try {
-            
+
         } catch (error) {
             next(error)
         }
     }
 }
+module.exports = new ItemModel();

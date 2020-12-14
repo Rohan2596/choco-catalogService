@@ -1,11 +1,19 @@
+const itemModel=require('../model/item.model');
 class ItemService{
 
-      
-      
     addItemtoCatalog=(addItemDto,next)=>{
         try {
             console.log("Add iTem to catalog",addItemDto);
+            return  itemModel.addItemtoCatalog(addItemDto)
+            .then((data)=>{
+                console.log(data);
+                return data;
+            })
+            .catch((err)=>{
+                return err;
+            });
         } catch (error) {
+          console.log(error);
             next(error)
         }
     };

@@ -1,3 +1,4 @@
+const itemService=require('../service/item.service')
 class ItemController{
 
      
@@ -28,13 +29,23 @@ class ItemController{
                     'price': req.body.price,
                     'quantityType': req.body.quantityType
                 }
-                response.success = true;
-                response.message = "Item Added SuccessFully!";
-                response.data = item;
-                return res.status(200).send(response);
+                itemService.addItemtoCatalog(item)
+                .then((data)=>{
+                    response.success = true;
+                    response.message = "Item Added SuccessFully!";
+                    response.data = data;
+                    return res.status(200).send(response);
+                }).catch((err)=>{
+                    response.success = false;
+                    response.message = "Item Added Un-SuccessFully!";
+                    response.data = err;
+                    return res.status(404).send(response);
+                })
+                       
             }
 
         } catch (error) {
+            
             next(error)
         }
 
