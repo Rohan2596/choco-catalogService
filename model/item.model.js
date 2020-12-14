@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const catalogModel = require('./catalog.model');
 
 const itemSchema = new mongoose.Schema({
     'name': {
@@ -59,6 +60,28 @@ class ItemModel {
     };
     editItemofCatalog = (itemDto, next) => {
         try {
+            return new Promise((resolve,reject)=>{
+
+                itemModel.findByIdAndUpdate(
+                    {
+                        '_id':itemDto.itemId
+                    },{
+                        $set:{
+                            "name":itemDto.name,
+                            "category":itemDto.category,
+                            "quantity":itemDto.quantity,
+                            "price":itemDto.price,
+                            "item": itemDto.quantityType
+                        }
+                    }
+                ).then(result=>{
+                    if(result){
+                        resolve({message:'Item of Category Updated',data:result})
+                    }else{
+                        reject({message:'Item Updation failed.',data:itemDto})
+                    }
+                })
+            })
 
         } catch (error) {
             next(error)

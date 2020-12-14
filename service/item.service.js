@@ -20,6 +20,14 @@ class ItemService{
     editItemtoCatalog=(editItemDto,next)=>{
         try {
             console.log("Edit Item to catalog",editItemDto);
+            return  itemModel.editItemofCatalog(editItemDto)
+            .then((data)=>{
+                console.log(data);
+                return data;
+            })
+            .catch((err)=>{
+                return err;
+            });
         } catch (error) {
             next(error)
         }

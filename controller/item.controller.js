@@ -71,17 +71,25 @@ class ItemController{
                 return res.status(500).send(response);
             } else {
                 const item = {
+                    'itemId':itemId,
                     'name': req.body.name,
                     'category': req.body.category,
                     'quantity': req.body.quantity,
                     'price': req.body.price,
                     'quantityType': req.body.quantityType
                 }
-                response.success = true;
-                response.message = "Item Updated SuccessFully!";
-                response.data = item;
-                return res.status(200).send(response);
-            }
+                itemService.editItemtoCatalog(item)
+                .then((data)=>{
+                    response.success = true;
+                    response.message = "Item Updated SuccessFully!";
+                    response.data = data;
+                    return res.status(200).send(response);
+                }).catch((err)=>{
+                    response.success = false;
+                    response.message = "Item Updated Un-SuccessFully!";
+                    response.data = err;
+                    return res.status(404).send(response);
+                })}
 
         } catch (error) {
             next(error)
