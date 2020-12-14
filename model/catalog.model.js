@@ -48,6 +48,36 @@ class CatalogModel{
             next(error)
             
         }
+    };
+    updateCatalog=(catalogDto,next)=>{
+        try {
+            return new Promise((resolve,reject)=>{
+
+                catalogModel.findByIdAndUpdate(
+                    {
+                        '_id':catalogDto.catalogId
+                    },{
+                        $set:{
+                            "name":catalogDto.name,
+                            "category":catalogDto.category
+                        }
+                    }
+                ).then(result=>{
+                    if(result){
+                        resolve({message:'Category Updated',data:result});
+                    
+                    }else{
+                        reject({message:'Category Updateed FAILED.',data:result})
+                    }
+                })
+            });
+            
+    
+            
+        } catch (error) {
+            console.log(error);
+            next(error)
+        }
     }
 
 

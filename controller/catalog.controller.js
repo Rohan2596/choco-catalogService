@@ -19,7 +19,7 @@ class CatalogController {
                     'name': req.body.name,
                     'category': req.body.category,
                     'items': [],
-                    'token':token
+                    'token': token
                 }
                 catalogService.createCatalog(createCatalogDto)
                     .then((data) => {
@@ -35,7 +35,7 @@ class CatalogController {
                         return res.status(404).send(response);
 
                     })
-                
+
             }
         } catch (error) {
             console.log(error);
@@ -47,6 +47,7 @@ class CatalogController {
             let response = {}
             let token = req.params.token
             let catalogId = req.params.catalogId
+            console.log(req.body);
             req.checkBody('name', 'Please Enter Valid Catalog name!').notEmpty().isAlpha().isLength({ min: '3', max: '10' });
             req.checkBody('category', 'Please Enter Valid Catalog category!').notEmpty().isAlpha().isLength({ min: '3', max: '10' });
             let validationErrors = req.validationErrors();
@@ -60,25 +61,26 @@ class CatalogController {
                     'name': req.body.name,
                     'category': req.body.category,
                     'items': [],
-                    'token':token,
-                    'catalogId':catalogId
+                    'token': token,
+                    'catalogId': catalogId
                 }
                 catalogService.editCatalog(editCatalogDto)
-                .then((data) => {
-                    response.success = true;
-                    response.message = "Catalog Edited SuccessFully!";
-                    response.data = data;
-                    return res.status(200).send(response);
-                }
-                ).catch((err) => {
-                    response.success = false;
-                    response.message = "Catalog Created SuccessFully!";
-                    response.data = err;
-                    return res.status(404).send(response);
+                    .then((data) => {
+                        response.success = true;
+                        response.message = "Catalog Edited SuccessFully!";
+                        response.data = data;
+                        return res.status(200).send(response);
+                    }
+                    ).catch((err) => {
+                        response.success = false;
+                        response.message = "Catalog Created SuccessFully!";
+                        response.data = err;
+                        return res.status(404).send(response);
 
-                })
-}
+                    })
+            }
         } catch (error) {
+            console.log(error);
             next(error)
         }
     };

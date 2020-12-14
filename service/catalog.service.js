@@ -20,8 +20,14 @@ class CatalogService {
 
     editCatalog = (editCatalogDto, next) => {
         try {
-            console.log("Catalog Edited Succesfully.", editCatalogDto);
-            return editCatalogDto;
+            return catalogModel.updateCatalog(editCatalogDto)
+            .then(
+                (data)=>{
+                    return data;
+                }
+            ).catch((err)=>{
+                return err
+            })
         } catch (error) {
             next(error)
         }
