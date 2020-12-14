@@ -23,17 +23,53 @@ const itemSchema = new mongoose.Schema({
         required: true
 
     }
-},{
-    timestamps:true
+}, {
+    timestamps: true
 })
 
-const itemModel=mongoose.model('item',itemSchema);
-class ItemModel{
-    addItemtoCatalog=(itemDto,next)=>{
+const itemModel = mongoose.model('item', itemSchema);
+class ItemModel {
+    addItemtoCatalog = (itemDto, next) => {
+        try {
+
+        } catch (error) {
+            next(error);
+        }
+    };
+    editItemofCatalog = (itemDto, next) => {
+        try {
+
+        } catch (error) {
+            next(error)
+        }
+    };
+    getAItemCatalog = (itemDto, next) => {
+        try {
+
+        } catch (error) {
+            next(error)
+        }
+    };
+    getItemsOfCatalog = (itemDto, next) => {
         try {
             
         } catch (error) {
+            next(error)
+        }
+
+    };
+    removeAItemfromCatalog=(itemDto,next)=>{
+        try {
             
+        } catch (error) {
+            next(error)
+        }
+    }
+    deleteAItemofCatalog=(itemDto,next)=>{
+        try {
+            
+        } catch (error) {
+            next(error)
         }
     }
 }
