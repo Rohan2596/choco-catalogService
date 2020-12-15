@@ -54,7 +54,6 @@ class ItemModel {
                 new itemModel(item)
                     .save()
                     .then(result => {
-
                             catalogModel.findOneAndUpdate(
                                 {
                                     '_id':itemDto.catalogId
@@ -174,18 +173,30 @@ class ItemModel {
     deleteAItemofCatalog = (itemDto, next) => {
         try {
             return new Promise((resolve, reject) => {
-
-                itemModel.findByIdAndDelete(
-                    {
-                        '_id': itemDto.itemId
-                    }
-                ).then(result => {
-                    if (result) {
-                        resolve({ message: 'Item of Category Deletion', data: result })
-                    } else {
-                        reject({ message: 'Item deletion failed.', data: itemDto })
-                    }
-                })
+            catalogModel.findByIdAndUpdate({
+                '_id':itemDto.catalogId
+            },{
+                $pull:{
+                    items:itemDto.itemId
+                }
+            },{new:true}).then (catalog=>{
+                if(catalog){
+                    itemModel.findByIdAndDelete(
+                        {
+                            '_id': itemDto.itemId
+                        }
+                    ).then(result => {
+                        if (result) {
+                            resolve({ message: 'Item of Category Deletion', data: result })
+                        } else {
+                            reject({ message: 'Item deletion failed.', data: result })
+                        }
+                    })
+                }else{
+                    reject({ message: 'Item deletion failed.', data:catalog  })
+                }
+            })
+                
             })
 
         } catch (error) {
