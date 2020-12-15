@@ -45,9 +45,15 @@ class ItemService{
             next(error)
         }
     };
-    deleteItemOfCatalog=(req,next)=>{
-        try {
-            console.log("Delete an item from catalog",req);
+    deleteItemOfCatalog=(itemDto,next)=>{
+        try{
+        return  itemModel.deleteAItemofCatalog(itemDto)
+            .then((data)=>{
+                return data;
+            })
+            .catch((err)=>{
+                return err;
+            })
         } catch (error) {
             next(error)
         }

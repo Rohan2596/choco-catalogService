@@ -134,9 +134,9 @@ class ItemModel {
                 }
                 ).then(result => {
                     if (result) {
-                        resolve({ message: 'Item of Category Updated', data: result })
+                        resolve({ message: 'Item of Category Reomved', data: result })
                     } else {
-                        reject({ message: 'Item Updation failed.', data: itemDto })
+                        reject({ message: 'Item Removed failed.', data: itemDto })
                     }
                 })
             })
@@ -148,10 +148,26 @@ class ItemModel {
     }
     deleteAItemofCatalog = (itemDto, next) => {
         try {
+            return new Promise((resolve, reject) => {
+
+                itemModel.findByIdAndDelete(
+                    {
+                        '_id': itemDto.itemId
+                    }
+                ).then(result => {
+                    if (result) {
+                        resolve({ message: 'Item of Category Deletion', data: result })
+                    } else {
+                        reject({ message: 'Item deletion failed.', data: itemDto })
+                    }
+                })
+            })
 
         } catch (error) {
             next(error)
         }
+
+
     }
 }
 module.exports = new ItemModel();
