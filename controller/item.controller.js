@@ -27,7 +27,8 @@ class ItemController {
                     'category': req.body.category,
                     'quantity': req.body.quantity,
                     'price': req.body.price,
-                    'quantityType': req.body.quantityType
+                    'quantityType': req.body.quantityType,
+                    'catalogId':catalogId
                 }
                 itemService.addItemtoCatalog(item)
                     .then((data) => {
@@ -45,7 +46,7 @@ class ItemController {
             }
 
         } catch (error) {
-
+           
             next(error)
         }
 

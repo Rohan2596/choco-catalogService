@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const catalogModel=require('mongoose').model('catalog')
 const itemSchema = new mongoose.Schema({
     'name': {
         type: String,
@@ -27,6 +27,10 @@ const itemSchema = new mongoose.Schema({
         type: Boolean,
         required: true
 
+    },
+    catalog:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"catalog"
     }
 
 }, {
@@ -50,8 +54,29 @@ class ItemModel {
                 new itemModel(item)
                     .save()
                     .then(result => {
-                        resolve({ message: 'Item Added successfully!', data: result });
+
+                            catalogModel.findOneAndUpdate(
+                                {
+                                    '_id':itemDto.catalogId
+                                },{
+                                    $push:{
+                                 items : result._id    
+                                    }
+                                },{new:true}
+                            ).then(result=>{
+                                if(result){
+                                    resolve({message:'Category Updated',data:result});
+                                
+                                }else{
+                                    reject({message:'Category Updateed FAILED.',data:result})
+                                }
+                            });
+                            resolve({message:'Item Added Succesdfully.',data:result});
+
+                        
+
                     }).catch(err => {
+                        console.log(err);
                         reject({ message: 'Item Addition Failed.', error: err });
                     })
 

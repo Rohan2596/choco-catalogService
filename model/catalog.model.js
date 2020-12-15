@@ -15,7 +15,12 @@ const catalogSchema=new mongoose.Schema(
             required:true
         },
         'items':{
-            type:[]
+            type:[
+                {
+                    type:mongoose.Schema.Types.ObjectId,
+                    ref:"item"
+                }
+            ]
         }
     },{
         timestamps:true
@@ -140,7 +145,9 @@ class CatalogModel{
         } catch (error) {
             next(error)
         }
-    }
+    };
+    
+
 
 
 

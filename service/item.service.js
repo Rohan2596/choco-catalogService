@@ -3,7 +3,6 @@ class ItemService{
 
     addItemtoCatalog=(addItemDto,next)=>{
         try {
-            console.log("Add iTem to catalog",addItemDto);
             return  itemModel.addItemtoCatalog(addItemDto)
             .then((data)=>{
                 console.log(data);
