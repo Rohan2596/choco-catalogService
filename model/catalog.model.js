@@ -87,11 +87,11 @@ class CatalogModel{
     getCatalog=(catalogDto,next)=>{
         try {
             return new Promise((resolve,reject)=>{
-                catalogModel.findById(
+                catalogModel.findOne(
                     {
                         '_id':catalogDto.catalogId
                     }
-                ).then(result=>{
+                ).populate("items").then(result=>{
 
                     if(result){
                         resolve({message:'Get Catalog based on Id',data:result});
