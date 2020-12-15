@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const catalogModel = require('./catalog.model');
 
 const itemSchema = new mongoose.Schema({
     'name': {
@@ -23,7 +22,13 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true
 
+    },
+    'inList': {
+        type: Boolean,
+        required: true
+
     }
+
 }, {
     timestamps: true
 })
@@ -38,8 +43,8 @@ class ItemModel {
                     'category': itemDto.category,
                     'quantity': itemDto.quantity,
                     'price': itemDto.price,
-                    'quantityType': itemDto.quantityType
-
+                    'quantityType': itemDto.quantityType,
+                    'inList': false
                 }
 
                 new itemModel(item)
@@ -60,25 +65,25 @@ class ItemModel {
     };
     editItemofCatalog = (itemDto, next) => {
         try {
-            return new Promise((resolve,reject)=>{
+            return new Promise((resolve, reject) => {
 
                 itemModel.findByIdAndUpdate(
                     {
-                        '_id':itemDto.itemId
-                    },{
-                        $set:{
-                            "name":itemDto.name,
-                            "category":itemDto.category,
-                            "quantity":itemDto.quantity,
-                            "price":itemDto.price,
-                            "item": itemDto.quantityType
-                        }
+                        '_id': itemDto.itemId
+                    }, {
+                    $set: {
+                        "name": itemDto.name,
+                        "category": itemDto.category,
+                        "quantity": itemDto.quantity,
+                        "price": itemDto.price,
+                        "item": itemDto.quantityType
                     }
-                ).then(result=>{
-                    if(result){
-                        resolve({message:'Item of Category Updated',data:result})
-                    }else{
-                        reject({message:'Item Updation failed.',data:itemDto})
+                }
+                ).then(result => {
+                    if (result) {
+                        resolve({ message: 'Item of Category Updated', data: result })
+                    } else {
+                        reject({ message: 'Item Updation failed.', data: itemDto })
                     }
                 })
             })
@@ -89,20 +94,20 @@ class ItemModel {
     };
     getAItemCatalog = (itemDto, next) => {
         try {
-         return new Promise((resolve,reject)=>{
+            return new Promise((resolve, reject) => {
 
-            itemModel.findById(
-                {
-                    '_id':itemDto.itemId
-                }
-            ).then(result=>{
-                if(result){
-                    resolve({message:'Item of Category Updated',data:result})
-                }else{
-                    reject({message:'Item Updation failed.',data:itemDto})
-                }
+                itemModel.findById(
+                    {
+                        '_id': itemDto.itemId
+                    }
+                ).then(result => {
+                    if (result) {
+                        resolve({ message: 'Item of Category Updated', data: result })
+                    } else {
+                        reject({ message: 'Item Updation failed.', data: itemDto })
+                    }
+                })
             })
-        })
         } catch (error) {
             next(error)
         }
@@ -117,10 +122,29 @@ class ItemModel {
     };
     removeAItemfromCatalog = (itemDto, next) => {
         try {
+            return new Promise((resolve, reject) => {
+
+                itemModel.findByIdAndUpdate(
+                    {
+                        '_id': itemDto.itemId
+                    }, {
+                    $set: {
+                        "inList": true
+                    }
+                }
+                ).then(result => {
+                    if (result) {
+                        resolve({ message: 'Item of Category Updated', data: result })
+                    } else {
+                        reject({ message: 'Item Updation failed.', data: itemDto })
+                    }
+                })
+            })
 
         } catch (error) {
             next(error)
         }
+
     }
     deleteAItemofCatalog = (itemDto, next) => {
         try {

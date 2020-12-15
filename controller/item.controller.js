@@ -167,11 +167,23 @@ class ItemController {
             let token = req.params.token
             let catalogId = req.params.catalogId
             let itemId = req.params.itemId
-            console.log(token + " <===> " + catalogId + "<==>" + itemId);
-            response.success = true;
-            response.message = "Remove item of a Catalog!";
-            response.data = itemId;
-            return res.status(200).send(response);
+            let itemDto={
+                "token":token,
+                "catalogId":catalogId,
+                "itemId":itemId
+            }
+            itemService.removeItemFromCatalog(itemDto)
+            .then((data) => {
+                response.success = true;
+                response.message = data.message;
+                response.data = data.data;
+                return res.status(200).send(response);
+            }).catch((err) => {
+                response.success = false;
+                response.message = "Item Updated Un-SuccessFully!";
+                response.data = err;
+                return res.status(404).send(response);
+            })
 
         } catch (error) {
             next(error)

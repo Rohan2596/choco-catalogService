@@ -52,9 +52,15 @@ class ItemService{
             next(error)
         }
     };
-    removeItemFromCatalog=(req,next)=>{
+    removeItemFromCatalog=(itemDto,next)=>{
         try {
-            console.log("Remove an item from catalog",req);
+            return  itemModel.removeAItemfromCatalog(itemDto)
+            .then((data)=>{
+                return data;
+            })
+            .catch((err)=>{
+                return err;
+            });
         } catch (error) {
             next(error)
         }
