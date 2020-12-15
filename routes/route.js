@@ -15,6 +15,8 @@ route.post("/:token/:catalogId/item",itemController.addItemtoCatalog);
 
 route.put("/:token/:catalogId/item/:itemId",itemController.editItemofCatalog);
 
+route.get("/:token/:catalogId/item/:itemId",itemController.getAItemOfCatalog);
+
 route.get("/:token/:catalogId/item/all",itemController.getAllItemsofCatalog);
 
 route.delete("/:token/:catalogId/:itemId",itemController.deleteItemofCatalog);

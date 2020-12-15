@@ -32,9 +32,15 @@ class ItemService{
             next(error)
         }
     };
-    getAllItemsofCatalog=(req,next)=>{
+    getAItemofCatalog=(getItemDto,next)=>{
         try {
-            console.log("Getting All Items of Catalog",req);
+            return  itemModel.getAItemCatalog(getItemDto)
+            .then((data)=>{
+                return data;
+            })
+            .catch((err)=>{
+                return err;
+            });
         } catch (error) {
             next(error)
         }

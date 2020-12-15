@@ -89,7 +89,20 @@ class ItemModel {
     };
     getAItemCatalog = (itemDto, next) => {
         try {
+         return new Promise((resolve,reject)=>{
 
+            itemModel.findById(
+                {
+                    '_id':itemDto.itemId
+                }
+            ).then(result=>{
+                if(result){
+                    resolve({message:'Item of Category Updated',data:result})
+                }else{
+                    reject({message:'Item Updation failed.',data:itemDto})
+                }
+            })
+        })
         } catch (error) {
             next(error)
         }

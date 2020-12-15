@@ -1,7 +1,7 @@
-const itemService=require('../service/item.service')
-class ItemController{
+const itemService = require('../service/item.service')
+class ItemController {
 
-     
+
     addItemtoCatalog = (req, res, next) => {
 
         try {
@@ -30,22 +30,22 @@ class ItemController{
                     'quantityType': req.body.quantityType
                 }
                 itemService.addItemtoCatalog(item)
-                .then((data)=>{
-                    response.success = true;
-                    response.message = "Item Added SuccessFully!";
-                    response.data = data;
-                    return res.status(200).send(response);
-                }).catch((err)=>{
-                    response.success = false;
-                    response.message = "Item Added Un-SuccessFully!";
-                    response.data = err;
-                    return res.status(404).send(response);
-                })
-                       
+                    .then((data) => {
+                        response.success = true;
+                        response.message = "Item Added SuccessFully!";
+                        response.data = data;
+                        return res.status(200).send(response);
+                    }).catch((err) => {
+                        response.success = false;
+                        response.message = "Item Added Un-SuccessFully!";
+                        response.data = err;
+                        return res.status(404).send(response);
+                    })
+
             }
 
         } catch (error) {
-            
+
             next(error)
         }
 
@@ -71,7 +71,7 @@ class ItemController{
                 return res.status(500).send(response);
             } else {
                 const item = {
-                    'itemId':itemId,
+                    'itemId': itemId,
                     'name': req.body.name,
                     'category': req.body.category,
                     'quantity': req.body.quantity,
@@ -79,23 +79,53 @@ class ItemController{
                     'quantityType': req.body.quantityType
                 }
                 itemService.editItemtoCatalog(item)
-                .then((data)=>{
-                    response.success = true;
-                    response.message = "Item Updated SuccessFully!";
-                    response.data = data;
-                    return res.status(200).send(response);
-                }).catch((err)=>{
-                    response.success = false;
-                    response.message = "Item Updated Un-SuccessFully!";
-                    response.data = err;
-                    return res.status(404).send(response);
-                })}
+                    .then((data) => {
+                        response.success = true;
+                        response.message = "Item Updated SuccessFully!";
+                        response.data = data;
+                        return res.status(200).send(response);
+                    }).catch((err) => {
+                        response.success = false;
+                        response.message = "Item Updated Un-SuccessFully!";
+                        response.data = err;
+                        return res.status(404).send(response);
+                    })
+            }
 
         } catch (error) {
             next(error)
         }
 
     };
+
+    getAItemOfCatalog = (req, res, next) => {
+        try {
+            let response = {}
+            let token = req.params.token
+            let catalogId = req.params.catalogId
+            let itemId=req.params.itemId
+
+            let itemDto = {
+                "token": token,
+                "itemId": itemId
+            }
+            itemService.getAItemofCatalog(itemDto)
+                .then((data) => {
+                    response.success = true;
+                    response.message = data.message;
+                    response.data = data.data;
+                    return res.status(200).send(response);
+                }).catch((err) => {
+                    response.success = false;
+                    response.message = "Item Updated Un-SuccessFully!";
+                    response.data = err;
+                    return res.status(404).send(response);
+                })
+        }
+        catch (error) {
+            next(error)
+        }
+    }
     getAllItemsofCatalog = (req, res, next) => {
         try {
             let response = {}
@@ -147,8 +177,8 @@ class ItemController{
             next(error)
         }
 
-        
+
     }
 
 }
-module.exports=new ItemController();
+module.exports = new ItemController();
