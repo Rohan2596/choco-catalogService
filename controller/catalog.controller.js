@@ -1,6 +1,10 @@
 const catalogService = require('../service/catalog.service')
 class CatalogController {
 
+    /*
+    @purpose :- Creating a Catalog based on UserId
+    @author :- Rohan Kadam
+    */
     createCatalog = (req, res, next) => {
         try {
             let response = {}
@@ -42,6 +46,11 @@ class CatalogController {
             next(error)
         }
     };
+
+    /*
+    @purpose :- Editing a Catalog based on UserId and Catalog Id
+    @author :- Rohan Kadam
+    */
     editCatalog = (req, res, next) => {
         try {
             let response = {}
@@ -84,6 +93,10 @@ class CatalogController {
             next(error)
         }
     };
+    /*
+    @purpose :- Getting all Catalogs of all Users.
+    @author :- Rohan Kadam
+    */
     getAllCatalog = (req, res, next) => {
         try {
             let response = {}
@@ -111,6 +124,10 @@ class CatalogController {
 
 
     };
+    /*
+    @purpose :- Getting a Catalog based on UserId and CatalogId
+    @author :- Rohan Kadam
+    */
     getSupplierCatalog = (req, res, next) => {
         try {
             let response = {}
@@ -140,6 +157,11 @@ class CatalogController {
         }
 
     };
+
+    /*
+    @purpose :- Deleting a Catalog based on UserId and catalogId
+    @author :- Rohan Kadam
+    */
     deleteCatalog = (req, res, next) => {
         try {
             let response = {}

@@ -136,14 +136,7 @@ class ItemModel {
             next(error)
         }
     };
-    getItemsOfCatalog = (itemDto, next) => {
-        try {
 
-        } catch (error) {
-            next(error)
-        }
-
-    };
     removeAItemfromCatalog = (itemDto, next) => {
         try {
             return new Promise((resolve, reject) => {
