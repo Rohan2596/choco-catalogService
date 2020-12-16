@@ -8,7 +8,6 @@ class ItemController {
             let response = {}
             let token = req.params.token
             let catalogId = req.params.catalogId
-            console.log(token + " <===> " + catalogId);
             req.checkBody('name', 'Please Enter Valid Item name!').notEmpty().isAlpha().isLength({ min: '3', max: '10' });
             req.checkBody('category', 'Please Enter Valid Item category!').notEmpty().isAlpha().isLength({ min: '3', max: '10' });
             req.checkBody('quantity', 'Please Enter Valid Item quantity!').notEmpty().isNumeric().isLength({ min: '1', max: '4' });
@@ -33,8 +32,8 @@ class ItemController {
                 itemService.addItemtoCatalog(item)
                     .then((data) => {
                         response.success = true;
-                        response.message = "Item Added SuccessFully!";
-                        response.data = data;
+                        response.message = data.message;
+                        response.data = data.data;
                         return res.status(200).send(response);
                     }).catch((err) => {
                         response.success = false;
@@ -57,7 +56,7 @@ class ItemController {
             let token = req.params.token
             let catalogId = req.params.catalogId
             let itemId = req.params.itemId
-            console.log(token + " <===> " + catalogId + "<==>" + itemId);
+           
             req.checkBody('name', 'Please Enter Valid Item name!').notEmpty().isAlpha().isLength({ min: '3', max: '10' });
             req.checkBody('category', 'Please Enter Valid Item category!').notEmpty().isAlpha().isLength({ min: '3', max: '10' });
             req.checkBody('quantity', 'Please Enter Valid Item quantity!').notEmpty().isNumeric().isLength({ min: '1', max: '4' });
@@ -82,8 +81,8 @@ class ItemController {
                 itemService.editItemtoCatalog(item)
                     .then((data) => {
                         response.success = true;
-                        response.message = "Item Updated SuccessFully!";
-                        response.data = data;
+                        response.message = data.message;
+                        response.data = data.data;
                         return res.status(200).send(response);
                     }).catch((err) => {
                         response.success = false;
@@ -132,9 +131,6 @@ class ItemController {
             let response = {}
             let token = req.params.token
             let catalogId = req.params.catalogId
-
-            console.log(token + " <===> " + catalogId);
-
             response.success = true;
             response.message = "All items of a Catalog!";
             response.data = [];

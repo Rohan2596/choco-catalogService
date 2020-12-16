@@ -25,7 +25,7 @@ class CatalogController {
                     .then((data) => {
                         response.success = true;
                         response.message = data.message;
-                        response.data = data;
+                        response.data = data.data;
                         return res.status(200).send(response);
                     }
                     ).catch((err) => {
@@ -68,7 +68,7 @@ class CatalogController {
                     .then((data) => {
                         response.success = true;
                         response.message = data.message;
-                        response.data = data;
+                        response.data = data.data;
                         return res.status(200).send(response);
                     }
                     ).catch((err) => {
@@ -91,19 +91,19 @@ class CatalogController {
 
 
             catalogService.getAllCatalog()
-            .then((data) => {
-                response.success = true;
-                response.message = data.message;
-                response.data = data;
-                return res.status(200).send(response);
-            }
-            ).catch((err) => {
-                response.success = false;
-                response.message = "No Data Found.";
-                response.data = err;
-                return res.status(404).send(response);
+                .then((data) => {
+                    response.success = true;
+                    response.message = data.message;
+                    response.data = data.data;
+                    return res.status(200).send(response);
+                }
+                ).catch((err) => {
+                    response.success = false;
+                    response.message = "No Data Found.";
+                    response.data = err;
+                    return res.status(404).send(response);
 
-            })
+                })
 
         } catch (error) {
             next(error)
@@ -116,53 +116,53 @@ class CatalogController {
             let response = {}
             let token = req.params.token
             let catalogId = req.params.catalogId
-            const catalogDto={
-                'catalogId':catalogId,
-                'customerId' :token
+            const catalogDto = {
+                'catalogId': catalogId,
+                'customerId': token
             }
             catalogService.getASuppliersCatalog(catalogDto)
-            .then((data) => {
-                response.success = true;
-                response.message = data.message;
-                response.data = data;
-                return res.status(200).send(response);
-            }
-            ).catch((err) => {
-                response.success = false;
-                response.message = "Catalog Created SuccessFully!";
-                response.data = err;
-                return res.status(404).send(response);
+                .then((data) => {
+                    response.success = true;
+                    response.message = data.message;
+                    response.data = data.data;
+                    return res.status(200).send(response);
+                }
+                ).catch((err) => {
+                    response.success = false;
+                    response.message = "Catalog Created SuccessFully!";
+                    response.data = err;
+                    return res.status(404).send(response);
 
-            })
+                })
 
         } catch (error) {
             next(error)
         }
 
     };
-    deleteCatalog=(req,res,next)=>{
+    deleteCatalog = (req, res, next) => {
         try {
             let response = {}
             let token = req.params.token
             let catalogId = req.params.catalogId
-            const catalogDto={
-                'catalogId':catalogId,
-                'customerId' :token
+            const catalogDto = {
+                'catalogId': catalogId,
+                'customerId': token
             }
             catalogService.deleteACatalog(catalogDto)
-            .then((data) => {
-                response.success = true;
-                response.message = data.message;
-                response.data = data;
-                return res.status(200).send(response);
-            }
-            ).catch((err) => {
-                response.success = false;
-                response.message = "Catalog Delete UnSuccessFully!";
-                response.data = err;
-                return res.status(404).send(response);
+                .then((data) => {
+                    response.success = true;
+                    response.message = data.message;
+                    response.data = data.data;
+                    return res.status(200).send(response);
+                }
+                ).catch((err) => {
+                    response.success = false;
+                    response.message = "Catalog Delete UnSuccessFully!";
+                    response.data = err;
+                    return res.status(404).send(response);
 
-            })
+                })
 
 
         } catch (error) {

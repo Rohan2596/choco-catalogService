@@ -3,17 +3,17 @@ class CatalogService {
 
     createCatalog = (createCatalogDto, next) => {
         try {
-          return   catalogModel.createCatalog(createCatalogDto)
+            return catalogModel.createCatalog(createCatalogDto)
                 .then(
                     (data) => {
-                        console.log(data);
+
                         return data
-                    }).catch((err)=>{
+                    }).catch((err) => {
                         return err
                     })
 
         } catch (error) {
-            console.log(error);
+
             next(error)
         }
     };
@@ -21,13 +21,13 @@ class CatalogService {
     editCatalog = (editCatalogDto, next) => {
         try {
             return catalogModel.updateCatalog(editCatalogDto)
-            .then(
-                (data)=>{
-                    return data;
-                }
-            ).catch((err)=>{
-                return err
-            })
+                .then(
+                    (data) => {
+                        return data;
+                    }
+                ).catch((err) => {
+                    return err
+                })
         } catch (error) {
             next(error)
         }
@@ -35,40 +35,40 @@ class CatalogService {
     getAllCatalog = (next) => {
         try {
             return catalogModel.getAllCatalog()
-            .then((data)=>{
-                return data;
-            }).catch((err)=>{
-                return err;
-            })
+                .then((data) => {
+                    return data;
+                }).catch((err) => {
+                    return err;
+                })
         } catch (error) {
             next(error)
         }
     }
     getASuppliersCatalog = (getAsupplierDto, next) => {
         try {
-          
+
             return catalogModel.getCatalog(getAsupplierDto)
-            .then(
-                (data)=>{
-                    return data;
-                }
-            ).catch((err)=>{
-                return err
-            })
+                .then(
+                    (data) => {
+                        return data;
+                    }
+                ).catch((err) => {
+                    return err
+                })
         } catch (error) {
             next(error)
         }
     };
-    deleteACatalog=(catalogDto,next)=>{
+    deleteACatalog = (catalogDto, next) => {
         try {
             return catalogModel.deteleCatalog(catalogDto)
-            .then(
-                (data)=>{
-                    return data;
-                }
-            ).catch((err)=>{
-                return err
-            })
+                .then(
+                    (data) => {
+                        return data;
+                    }
+                ).catch((err) => {
+                    return err
+                })
         } catch (error) {
             next(error)
         }

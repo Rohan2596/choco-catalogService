@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const catalogModel=require('mongoose').model('catalog')
+const catalogModel = require('mongoose').model('catalog')
 const itemSchema = new mongoose.Schema({
     'name': {
         type: String,
@@ -28,9 +28,9 @@ const itemSchema = new mongoose.Schema({
         required: true
 
     },
-    catalog:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"catalog"
+    catalog: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "catalog"
     }
 
 }, {
@@ -54,29 +54,29 @@ class ItemModel {
                 new itemModel(item)
                     .save()
                     .then(result => {
-                            catalogModel.findOneAndUpdate(
-                                {
-                                    '_id':itemDto.catalogId
-                                },{
-                                    $push:{
-                                 items : result._id    
-                                    }
-                                },{new:true}
-                            ).then(result=>{
-                                if(result){
-                                    resolve({message:'Category Updated',data:result});
-                                
-                                }else{
-                                    reject({message:'Category Updateed FAILED.',data:result})
-                                }
-                            });
-                            resolve({message:'Item Added Succesdfully.',data:result});
+                        catalogModel.findOneAndUpdate(
+                            {
+                                '_id': itemDto.catalogId
+                            }, {
+                            $push: {
+                                items: result._id
+                            }
+                        }, { new: true }
+                        ).then(result => {
+                            if (result) {
+                                resolve({ message: 'Catalog Updated Successfully!', data: result });
 
-                        
+                            } else {
+                                reject({ message: 'Catalog Updation Failed!', data: item })
+                            }
+                        });
+                        resolve({ message: 'Item Added Successfully!', data: result });
+
+
 
                     }).catch(err => {
                         console.log(err);
-                        reject({ message: 'Item Addition Failed.', error: err });
+                        reject({ message: 'Item Addition Failed!', error: err });
                     })
 
             })
@@ -105,9 +105,9 @@ class ItemModel {
                 }
                 ).then(result => {
                     if (result) {
-                        resolve({ message: 'Item of Category Updated', data: result })
+                        resolve({ message: 'Item of Catalog Updated Successfully!', data: result })
                     } else {
-                        reject({ message: 'Item Updation failed.', data: itemDto })
+                        reject({ message: 'Item Updation Failed!', data: itemDto })
                     }
                 })
             })
@@ -158,9 +158,9 @@ class ItemModel {
                 }
                 ).then(result => {
                     if (result) {
-                        resolve({ message: 'Item of Category Reomved', data: result })
+                        resolve({ message: 'Item of catalog removed sucessfully!', data: result })
                     } else {
-                        reject({ message: 'Item Removed failed.', data: itemDto })
+                        reject({ message: 'Item of catalog removing failed!', data: itemDto })
                     }
                 })
             })
@@ -173,30 +173,30 @@ class ItemModel {
     deleteAItemofCatalog = (itemDto, next) => {
         try {
             return new Promise((resolve, reject) => {
-            catalogModel.findByIdAndUpdate({
-                '_id':itemDto.catalogId
-            },{
-                $pull:{
-                    items:itemDto.itemId
-                }
-            },{new:true}).then (catalog=>{
-                if(catalog){
-                    itemModel.findByIdAndDelete(
-                        {
-                            '_id': itemDto.itemId
-                        }
-                    ).then(result => {
-                        if (result) {
-                            resolve({ message: 'Item of Category Deletion', data: result })
-                        } else {
-                            reject({ message: 'Item deletion failed.', data: result })
-                        }
-                    })
-                }else{
-                    reject({ message: 'Item deletion failed.', data:catalog  })
-                }
-            })
-                
+                catalogModel.findByIdAndUpdate({
+                    '_id': itemDto.catalogId
+                }, {
+                    $pull: {
+                        items: itemDto.itemId
+                    }
+                }, { new: true }).then(catalog => {
+                    if (catalog) {
+                        itemModel.findByIdAndDelete(
+                            {
+                                '_id': itemDto.itemId
+                            }
+                        ).then(result => {
+                            if (result) {
+                                resolve({ message: 'Item of catalog deleted successfully!', data: result })
+                            } else {
+                                reject({ message: 'Item of catalog deletion Failed', data: itemDto })
+                            }
+                        })
+                    } else {
+                        reject({ message: 'Failed to delete items!', data: catalog })
+                    }
+                })
+
             })
 
         } catch (error) {
